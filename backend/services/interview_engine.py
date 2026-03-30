@@ -5,12 +5,12 @@ Manages the 5-phase interview state machine and calls GPT-5.4 for each response.
 import os
 import json
 from pathlib import Path
-from openai import OpenAI
+from openai import AsyncOpenAI
 from services.questions_bank import search_questions, detect_field
 
 PROMPTS_DIR = Path(__file__).parent.parent / "prompts"
 
-client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
+client = AsyncOpenAI(api_key=os.environ["OPENAI_API_KEY"])
 
 
 def _read_prompt(name: str) -> str:
@@ -36,7 +36,7 @@ def _system_prompt(phase: int, resume_sections: dict, phase4_questions: list | N
     return f"{base}\n\n{phase_prompt}\n\nCANDIDATE RESUME:\n{resume_ctx}"
 
 
-def generate_response(
+async def generate_response(
     phase: int,
     conversation_history: list[dict],
     resume_sections: dict,
@@ -50,7 +50,7 @@ def generate_response(
 
     messages = [{"role": "system", "content": system}] + conversation_history
 
-    response = client.responses.create(
+    response = await client.responses.create(
         model="gpt-5.4",
         reasoning={"effort": "low"},
         input=messages,

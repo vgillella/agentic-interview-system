@@ -4,13 +4,13 @@ Report Generator — compiles phase scores into a narrative report.
 import os
 import json
 from pathlib import Path
-from openai import OpenAI
+from openai import AsyncOpenAI
 
 PROMPTS_DIR = Path(__file__).parent.parent / "prompts"
-client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
+client = AsyncOpenAI(api_key=os.environ["OPENAI_API_KEY"])
 
 
-def generate_report_narrative(
+async def generate_report_narrative(
     student_name: str,
     phase2: dict,
     phase3: dict,
@@ -37,7 +37,7 @@ def generate_report_narrative(
         .replace("{overall}", str(overall))
     )
 
-    response = client.responses.create(
+    response = await client.responses.create(
         model="gpt-5.4",
         reasoning={"effort": "low"},
         input=[{"role": "user", "content": prompt}],

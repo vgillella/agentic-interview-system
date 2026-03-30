@@ -27,7 +27,7 @@ async def start_interview(req: StartRequest):
     resume_sections = _get_resume_sections(db, req.session_id)
 
     # Get opening question (empty conversation = interviewer speaks first)
-    response_text, phase_complete = generate_response(
+    response_text, phase_complete = await generate_response(
         phase=1,
         conversation_history=[],
         resume_sections=resume_sections,
@@ -75,7 +75,7 @@ async def send_message(req: MessageRequest):
                 "phase_scores": json.dumps(phase_scores),
             }).eq("id", req.session_id).execute()
 
-    response_text, phase_complete = generate_response(
+    response_text, phase_complete = await generate_response(
         phase=current_phase,
         conversation_history=history,
         resume_sections=resume_sections,

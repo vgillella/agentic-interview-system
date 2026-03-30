@@ -4,14 +4,14 @@ Evaluation engine — scores each phase using GPT-5.4.
 import os
 import json
 from pathlib import Path
-from openai import OpenAI
+from openai import AsyncOpenAI
 
 PROMPTS_DIR = Path(__file__).parent.parent / "prompts"
-client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
+client = AsyncOpenAI(api_key=os.environ["OPENAI_API_KEY"])
 
 
-def _call_gpt(prompt: str) -> dict:
-    response = client.responses.create(
+async def _call_gpt(prompt: str) -> dict:
+    response = await client.responses.create(
         model="gpt-5.4",
         reasoning={"effort": "low"},
         input=[{"role": "user", "content": prompt}],
@@ -28,18 +28,18 @@ def _extract_phase_messages(conversation: list[dict], role: str) -> list[str]:
     return [m["content"] for m in conversation if m["role"] == role]
 
 
-def evaluate_phase2(conversation: list[dict], phase_number: int = 2) -> dict:
+async def evaluate_phase2(conversation: list[dict], phase_number: int = 2) -> dict:
     template = (PROMPTS_DIR / "eval_phase2.txt").read_text()
     conv_text = "\n".join([f"{m['role'].upper()}: {m['content']}" for m in conversation])
     prompt = template.replace("{phase_number}", str(phase_number)).replace("{conversation}", conv_text)
-    return _call_gpt(prompt)
+    return await _call_gpt(prompt)
 
 
-def evaluate_phase3(conversation: list[dict]) -> dict:
-    return evaluate_phase2(conversation, phase_number=3)
+async def evaluate_phase3(conversation: list[dict]) -> dict:
+    return await evaluate_phase2(conversation, phase_number=3)
 
 
-def evaluate_phase4(conversation: list[dict], phase4_questions: list[dict]) -> dict:
+async def evaluate_phase4(conversation: list[dict], phase4_questions: list[dict]) -> dict:
     template = (PROMPTS_DIR / "eval_phase4.txt").read_text()
 
     qa_text = "\n".join([
@@ -54,13 +54,13 @@ def evaluate_phase4(conversation: list[dict], phase4_questions: list[dict]) -> d
     prompt = (template
               .replace("{questions_and_answers}", qa_text)
               .replace("{candidate_responses}", responses_text))
-    return _call_gpt(prompt)
+    return await _call_gpt(prompt)
 
 
-def evaluate_phase5(conversation: list[dict]) -> dict:
+async def evaluate_phase5(conversation: list[dict]) -> dict:
     template = (PROMPTS_DIR / "eval_phase5.txt").read_text()
     conv_text = "\n".join([f"{m['role'].upper()}: {m['content']}" for m in conversation])
-    return _call_gpt(template.replace("{conversation}", conv_text))
+    return await _call_gpt(template.replace("{conversation}", conv_text))
 
 
 def compute_overall_score(

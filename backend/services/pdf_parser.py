@@ -5,9 +5,9 @@ Returns a dict of section_name -> content.
 import os
 import json
 import base64
-from openai import OpenAI
+from openai import AsyncOpenAI
 
-client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
+client = AsyncOpenAI(api_key=os.environ["OPENAI_API_KEY"])
 
 PARSE_PROMPT = """You are a resume parser. Extract ALL content from this resume PDF and return it as a JSON object with these exact keys:
 {
@@ -31,7 +31,7 @@ async def parse_resume_pdf(file_bytes: bytes, filename: str) -> dict:
     b64 = base64.standard_b64encode(file_bytes).decode("utf-8")
     data_url = f"data:application/pdf;base64,{b64}"
 
-    response = client.responses.create(
+    response = await client.responses.create(
         model="gpt-5.4",
         input=[
             {

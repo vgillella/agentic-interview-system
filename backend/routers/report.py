@@ -32,16 +32,16 @@ async def generate_report(session_id: str):
     phase4_questions = phase_scores_stored.get("phase4_questions", [])
 
     # Run all evaluations
-    p2 = evaluate_phase2(full_history)
-    p3 = evaluate_phase3(full_history)
-    p4 = evaluate_phase4(full_history, phase4_questions) if phase4_questions else {
+    p2 = await evaluate_phase2(full_history)
+    p3 = await evaluate_phase3(full_history)
+    p4 = await evaluate_phase4(full_history, phase4_questions) if phase4_questions else {
         "correct_count": 0, "partial_count": 0, "total_questions": 5
     }
-    p5 = evaluate_phase5(full_history)
+    p5 = await evaluate_phase5(full_history)
 
     overall = compute_overall_score(p2, p3, p4, p5)
 
-    narrative = generate_report_narrative(student_name, p2, p3, p4, p5, overall)
+    narrative = await generate_report_narrative(student_name, p2, p3, p4, p5, overall)
 
     # Check if report already exists
     existing = db.table("interview_reports").select("id").eq("session_id", session_id).execute()
