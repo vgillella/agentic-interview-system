@@ -8,14 +8,16 @@ Analyses transcribed text for signs of anxiety:
 import re
 
 
-FILLER_WORDS = {"um", "uh", "like", "you know", "i mean", "sort of", "kind of", "hmm", "err", "ah"}
+FILLER_WORDS = {"um", "uh", "you know", "i mean", "sort of", "kind of", "hmm", "err"}
 STUTTER_PATTERN = re.compile(r"\b(\w+)\b(?:\s+\1\b){2,}", re.IGNORECASE)
 
 
 def detect_anxiety(transcript: str) -> bool:
     """
     Returns True if the transcript signals significant anxiety.
-    Heuristic: filler density > 15% of words, OR 3+ consecutive repeated words.
+    Heuristic: filler density > 25% of words, OR 3+ consecutive repeated words.
+    Excludes "like"/"ah" — too common in normal technical speech.
+    Only triggers on responses of 10+ words to avoid false positives on short answers.
     """
     if not transcript:
         return False
@@ -24,7 +26,7 @@ def detect_anxiety(transcript: str) -> bool:
     words = text.split()
     total = len(words)
 
-    if total == 0:
+    if total < 10:
         return False
 
     # Count fillers
@@ -38,10 +40,7 @@ def detect_anxiety(transcript: str) -> bool:
     # Check stutter (repeated consecutive words)
     has_stutter = bool(STUTTER_PATTERN.search(text))
 
-    # Very short response on non-trivial question = blank-out
-    very_short = total < 5
-
-    return filler_density > 0.15 or has_stutter or very_short
+    return filler_density > 0.25 or has_stutter
 
 
 ANXIETY_MESSAGE = (
