@@ -1,0 +1,12 @@
+fastapi==0.135.2
+uvicorn==0.42.0
+python-multipart==0.0.22
+python-dotenv==1.2.2
+openai==2.30.0
+elevenlabs==2.40.0
+supabase==2.28.3
+sentence-transformers==5.3.0
+numpy==2.4.4
+aiofiles==25.1.0
+httpx==0.28.1
+pydantic==2.12.5

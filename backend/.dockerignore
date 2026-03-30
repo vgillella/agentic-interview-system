@@ -1,0 +1,10 @@
+venv/
+__pycache__/
+*.pyc
+*.pyo
+.env
+.env.*
+!.env.example
+data/ml_questions_embeddings.npy
+tests/
+*.egg-info/
