@@ -139,7 +139,7 @@ resource "aws_ssm_parameter" "elevenlabs_key" {
 resource "aws_ssm_parameter" "elevenlabs_voice_id" {
   name  = "/${local.app}/ELEVENLABS_VOICE_ID"
   type  = "String"
-  value = "OyLxfN4QfmkHrgD1bWBP"
+  value = "WRTiUEhnYuLOuf6I0PHk"
 }
 
 resource "aws_ssm_parameter" "supabase_url" {
@@ -232,9 +232,9 @@ resource "aws_ecs_task_definition" "backend" {
     healthCheck = {
       command     = ["CMD-SHELL", "curl -f http://localhost:8000/health || exit 1"]
       interval    = 30
-      timeout     = 5
-      retries     = 3
-      startPeriod = 60
+      timeout     = 10
+      retries     = 5
+      startPeriod = 120
     }
   }])
 }
