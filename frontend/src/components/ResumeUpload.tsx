@@ -6,9 +6,23 @@ interface Props {
   onUploadComplete: (sessionId: string, studentName: string) => void
 }
 
+const POLL_INTERVAL = 3000
+const POLL_MAX_ATTEMPTS = 40  // 40 × 3s = 120s max wait
+
+async function pollUntilReady(sessionId: string): Promise<{ student_name: string }> {
+  for (let i = 0; i < POLL_MAX_ATTEMPTS; i++) {
+    await new Promise(r => setTimeout(r, POLL_INTERVAL))
+    const { data } = await axios.get(`/api/session/${sessionId}/status`)
+    if (data.status === 'ready') return data
+    if (data.status === 'parse_failed') throw new Error('Resume parsing failed on the server.')
+  }
+  throw new Error('Resume parsing timed out. Please try again.')
+}
+
 export default function ResumeUpload({ onUploadComplete }: Props) {
   const [dragging, setDragging] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [statusText, setStatusText] = useState('Parsing your resume…')
   const [error, setError] = useState('')
 
   const handleFile = useCallback(async (file: File) => {
@@ -18,15 +32,18 @@ export default function ResumeUpload({ onUploadComplete }: Props) {
     }
     setError('')
     setLoading(true)
+    setStatusText('Uploading…')
     try {
       const form = new FormData()
       form.append('file', file)
       const { data } = await axios.post('/api/upload-resume', form, {
         headers: { 'Content-Type': 'multipart/form-data' },
       })
-      onUploadComplete(data.session_id, data.student_name)
+      setStatusText('Parsing your resume with AI… this takes about 30 seconds.')
+      const ready = await pollUntilReady(data.session_id)
+      onUploadComplete(data.session_id, ready.student_name || 'Candidate')
     } catch (e: any) {
-      setError(e?.response?.data?.detail || 'Upload failed. Please try again.')
+      setError(e?.response?.data?.detail || e?.message || 'Upload failed. Please try again.')
     } finally {
       setLoading(false)
     }
@@ -64,7 +81,7 @@ export default function ResumeUpload({ onUploadComplete }: Props) {
               : 'border-slate-700 hover:border-slate-500 bg-slate-900/40'
             }
           `}
-          onClick={() => document.getElementById('file-input')?.click()}
+          onClick={() => !loading && document.getElementById('file-input')?.click()}
         >
           <input
             id="file-input"
@@ -77,7 +94,7 @@ export default function ResumeUpload({ onUploadComplete }: Props) {
           {loading ? (
             <div className="flex flex-col items-center gap-3">
               <div className="w-8 h-8 border-2 border-indigo-400 border-t-transparent rounded-full animate-spin" />
-              <p className="text-slate-400 text-sm">Parsing your resume…</p>
+              <p className="text-slate-400 text-sm">{statusText}</p>
             </div>
           ) : (
             <>

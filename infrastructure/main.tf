@@ -66,16 +66,18 @@ resource "aws_cloudfront_distribution" "frontend" {
     origin_access_control_id = aws_cloudfront_origin_access_control.frontend.id
   }
 
-  # Origin 2: FastAPI backend via ALB (HTTP — CloudFront → ALB is internal, safe)
+  # Origin 2: FastAPI backend via ALB — extended timeout for GPT-5.4 PDF parsing
   origin {
     domain_name = aws_lb.backend.dns_name
     origin_id   = "alb-backend"
 
     custom_origin_config {
-      http_port              = 80
-      https_port             = 443
-      origin_protocol_policy = "http-only"
-      origin_ssl_protocols   = ["TLSv1.2"]
+      http_port                = 80
+      https_port               = 443
+      origin_protocol_policy   = "http-only"
+      origin_ssl_protocols     = ["TLSv1.2"]
+      origin_read_timeout      = 60    # CloudFront maximum allowed value
+      origin_keepalive_timeout = 60
     }
   }
 
