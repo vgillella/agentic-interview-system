@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
+  <defs>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"  stop-color="#818cf8" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#0f0f13" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="vgrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%"  stop-color="#a78bfa"/>
+      <stop offset="100%" stop-color="#6366f1"/>
+    </linearGradient>
+    <filter id="blur-glow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Outer glow circle -->
+  <circle cx="100" cy="100" r="90" fill="url(#glow)"/>
+
+  <!-- Hexagonal border ring -->
+  <polygon
+    points="100,14 176,57 176,143 100,186 24,143 24,57"
+    stroke="#6366f1" stroke-width="1.5" stroke-opacity="0.4" fill="none"
+  />
+  <polygon
+    points="100,22 169,62 169,138 100,178 31,138 31,62"
+    stroke="#818cf8" stroke-width="0.5" stroke-opacity="0.2" fill="none"
+  />
+
+  <!-- Neural network nodes — background layer -->
+  <!-- Top nodes -->
+  <circle cx="68"  cy="52"  r="3.5" fill="#6366f1" opacity="0.6"/>
+  <circle cx="132" cy="52"  r="3.5" fill="#6366f1" opacity="0.6"/>
+  <!-- Mid nodes -->
+  <circle cx="50"  cy="100" r="3"   fill="#818cf8" opacity="0.5"/>
+  <circle cx="150" cy="100" r="3"   fill="#818cf8" opacity="0.5"/>
+  <!-- Bottom convergence node -->
+  <circle cx="100" cy="148" r="5"   fill="#a78bfa" opacity="0.8" filter="url(#blur-glow)"/>
+
+  <!-- Connecting lines (synapses) -->
+  <line x1="68"  y1="52"  x2="50"  y2="100" stroke="#6366f1" stroke-width="0.8" opacity="0.35"/>
+  <line x1="132" y1="52"  x2="150" y2="100" stroke="#6366f1" stroke-width="0.8" opacity="0.35"/>
+  <line x1="50"  y1="100" x2="100" y2="148" stroke="#818cf8" stroke-width="0.8" opacity="0.35"/>
+  <line x1="150" y1="100" x2="100" y2="148" stroke="#818cf8" stroke-width="0.8" opacity="0.35"/>
+  <line x1="68"  y1="52"  x2="100" y2="148" stroke="#6366f1" stroke-width="0.5" opacity="0.15"/>
+  <line x1="132" y1="52"  x2="100" y2="148" stroke="#6366f1" stroke-width="0.5" opacity="0.15"/>
+
+  <!-- The "V" — bold centrepiece -->
+  <path
+    d="M 60 52 L 100 138 L 140 52"
+    stroke="url(#vgrad)"
+    stroke-width="9"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    fill="none"
+    filter="url(#blur-glow)"
+  />
+
+  <!-- Apex dot pulse -->
+  <circle cx="100" cy="138" r="6" fill="#a78bfa" opacity="0.9" filter="url(#blur-glow)"/>
+  <circle cx="100" cy="138" r="3" fill="white" opacity="0.95"/>
+
+  <!-- Top-arm terminal dots -->
+  <circle cx="60"  cy="52" r="4" fill="#818cf8" opacity="0.85"/>
+  <circle cx="140" cy="52" r="4" fill="#818cf8" opacity="0.85"/>
+</svg>

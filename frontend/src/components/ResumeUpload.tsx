@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react'
 import axios from 'axios'
+import Logo from './Logo'
 
 interface Props {
   onUploadComplete: (sessionId: string, studentName: string) => void
@@ -42,7 +43,10 @@ export default function ResumeUpload({ onUploadComplete }: Props) {
     <div className="min-h-screen flex items-center justify-center bg-[#0f0f13]">
       <div className="w-full max-w-lg px-4">
         <div className="text-center mb-10">
-          <h1 className="text-4xl font-light text-white tracking-tight mb-2">
+          <div className="flex justify-center mb-6">
+            <Logo size={56} showWordmark={true} />
+          </div>
+          <h1 className="text-3xl font-light text-white tracking-tight mb-2">
             AI Interview Agent
           </h1>
           <p className="text-slate-400 text-sm">Upload your resume to begin the interview</p>

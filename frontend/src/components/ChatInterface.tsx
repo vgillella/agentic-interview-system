@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useInterview } from '../hooks/useInterview'
 import PhaseIndicator from './PhaseIndicator'
 import VoiceRecorder from './VoiceRecorder'
+import Logo from './Logo'
 
 interface Props {
   sessionId: string
@@ -43,9 +44,12 @@ export default function ChatInterface({ sessionId, studentName, onComplete }: Pr
       {/* Header */}
       <div className="border-b border-slate-800 bg-slate-900/60 backdrop-blur">
         <div className="max-w-3xl mx-auto px-4 py-3 flex items-center justify-between">
-          <div>
-            <h2 className="text-white font-medium text-sm">{studentName}</h2>
-            <p className="text-slate-400 text-xs">{phaseLabel}</p>
+          <div className="flex items-center gap-3">
+            <Logo size={32} showWordmark={false} />
+            <div>
+              <h2 className="text-white font-medium text-sm">{studentName}</h2>
+              <p className="text-slate-400 text-xs">{phaseLabel}</p>
+            </div>
           </div>
           <PhaseIndicator currentPhase={state.phase} />
         </div>

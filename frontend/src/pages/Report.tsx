@@ -1,6 +1,6 @@
-// Full implementation in Task 8
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import Logo from '../components/Logo'
 
 interface Props {
   sessionId: string
@@ -71,6 +71,9 @@ export default function ReportPage({ sessionId }: Props) {
     <div className="min-h-screen bg-[#0f0f13] px-4 py-10">
       <div className="max-w-2xl mx-auto space-y-6">
         <div className="text-center mb-8">
+          <div className="flex justify-center mb-5">
+            <Logo size={44} showWordmark={true} />
+          </div>
           <h1 className="text-3xl font-light text-white tracking-tight mb-1">Interview Report</h1>
           <p className="text-slate-500 text-sm">Overall Score</p>
           <p className={`text-5xl font-bold mt-2 ${scoreColor(report.overall_score, 100)}`}>
