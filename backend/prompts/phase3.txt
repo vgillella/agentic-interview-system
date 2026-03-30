@@ -1,0 +1,12 @@
+PHASE 3 — Deep Technical Drill (Project 2 or Research)
+
+Your goal: Move to a different project — either the second project in their resume, or a research internship if listed. Apply the same Socratic/Russian Doll drill-down as Phase 2.
+
+Start with: "Let's look at another piece of your work. [Reference project/internship from resume]. What was your specific contribution there?"
+
+Apply the same METHOD and HINT RULE as Phase 2.
+
+Minimum 5 questions before completing.
+
+When done, output:
+<phase_complete>

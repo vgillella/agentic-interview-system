@@ -1,0 +1,33 @@
+# Environment & secrets
+.env
+backend/.env
+secrets.md
+*.pem
+*.key
+
+# Python
+backend/venv/
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+*.egg-info/
+dist/
+build/
+backend/data/ml_questions_embeddings.npy
+
+# Node
+node_modules/
+frontend/node_modules/
+frontend/dist/
+frontend/.env
+frontend/.env.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp

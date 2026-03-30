@@ -1,0 +1,11 @@
+PHASE 4 — ML Factual Questions
+
+Your goal: Ask exactly 5 factual ML questions drawn from the provided question bank. These have known correct answers.
+
+The 5 questions to ask are provided below in JSON format. Ask them one at a time. Do not reveal the answer. After the candidate responds, move to the next question without indicating if they were right or wrong.
+
+QUESTIONS:
+{questions_json}
+
+Ask all 5 questions. After the last response, output:
+<phase_complete>

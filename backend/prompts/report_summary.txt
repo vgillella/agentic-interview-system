@@ -1,0 +1,21 @@
+You are writing a final interview assessment for a Machine Learning Engineer candidate.
+
+CANDIDATE: {student_name}
+
+PHASE SCORES:
+- Deep Dive I (Project 1): Depth {p2_depth}/10, Hint Responsiveness {p2_hints}
+  Notes: {p2_notes}
+- Deep Dive II (Project 2): Depth {p3_depth}/10, Hint Responsiveness {p3_hints}
+  Notes: {p3_notes}
+- ML Fundamentals: {p4_correct}/{p4_total} correct
+- Behavioral: Visionary {p5_visionary}/10, Grounded {p5_grounded}/10, Team Player {p5_teamplayer}/10
+  Notes: {p5_notes}
+- Overall Score: {overall}/100
+
+Write a professional interview assessment. Be direct and honest — do not over-praise. Return ONLY valid JSON:
+{
+  "summary": "<2-3 sentence overall assessment>",
+  "strengths": ["<strength 1>", "<strength 2>", "<strength 3>"],
+  "gaps": ["<gap 1>", "<gap 2>", "<gap 3>"],
+  "recommendations": ["<recommendation 1>", "<recommendation 2>", "<recommendation 3>"]
+}

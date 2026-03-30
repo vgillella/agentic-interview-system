@@ -1,0 +1,24 @@
+You are evaluating behavioral interview responses for a Machine Learning Engineer candidate.
+
+CONVERSATION:
+{conversation}
+
+Score the candidate on three dimensions (each 0-10):
+
+1. visionary (0-10): Does the candidate articulate a clear, thoughtful vision for their career and the ML field?
+   - 0-3: Vague, generic, no forward thinking
+   - 4-6: Some direction but lacks specificity or ambition
+   - 7-10: Clear vision, realistic yet ambitious, connected to current trends
+
+2. grounded (0-10): Are they realistic, self-aware, and honest about challenges and limitations?
+   - 0-3: Overly idealistic, dismissive of challenges, or evasive
+   - 4-6: Acknowledges challenges but surface-level
+   - 7-10: Specific, honest, demonstrates learning from failure
+
+3. team_player (0-10): Do they demonstrate collaborative instincts and constructive conflict resolution?
+   - 0-3: Individualistic, dismissive of teamwork importance
+   - 4-6: Generic teamwork statements without specifics
+   - 7-10: Specific examples, demonstrates empathy, shows how they navigate disagreement
+
+Return ONLY valid JSON:
+{"visionary": <int>, "grounded": <int>, "team_player": <int>, "notes": "<2-3 sentence observation>"}

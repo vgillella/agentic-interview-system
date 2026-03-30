@@ -1,0 +1,532 @@
+[
+  {
+    "id": 1,
+    "question": "What's the trade-off between bias and variance? [[src](http://houseofbots.com/news-detail/2849-4-data-science-and-machine-learning-interview-questions)]",
+    "answer": "If our model is too simple and has very few parameters then it may have high bias and low variance. On the other hand if our model has large number of parameters then it\u2019s going to have high variance and low bias. So we need to find the right/good balance without overfitting and underfitting the data. [[src]](https://towardsdatascience.com/understanding-the-bias-variance-tradeoff-165e6942b229)",
+    "tags": [
+      "fundamentals"
+    ]
+  },
+  {
+    "id": 2,
+    "question": "What is gradient descent? [[src](http://houseofbots.com/news-detail/2849-4-data-science-and-machine-learning-interview-questions)]",
+    "answer": "[[Answer]](https://machinelearningmastery.com/gradient-descent-for-machine-learning/)\n\nGradient descent is an optimization algorithm used to find the values of parameters (coefficients) of a function (f) that minimizes a cost function (cost).\n\nGradient descent is best used when the parameters cannot be calculated analytically (e.g. using linear algebra) and must be searched for by an optimization algorithm.",
+    "tags": [
+      "optimization"
+    ]
+  },
+  {
+    "id": 3,
+    "question": "Explain over- and under-fitting and how to combat them? [[src](http://houseofbots.com/news-detail/2849-4-data-science-and-machine-learning-interview-questions)]",
+    "answer": "[[Answer]](https://towardsdatascience.com/overfitting-vs-underfitting-a-complete-example-d05dd7e19765)\n\nML/DL models essentially learn a relationship between its given inputs(called training features) and objective outputs(called labels). Regardless of the quality of the learned relation(function), its performance on a test set(a collection of data different from the training input) is subject to investigation.\n\nMost ML/DL models have trainable parameters which will be learned to build that input-output relationship. Based on the number of parameters each model has, they can be sorted into more flexible(more parameters) to less flexible(less parameters).\n\nThe problem of Underfitting arises when the flexibility of a model(its number of parameters) is not adequate to capture the underlying pattern in a training dataset. Overfitting, on the other hand, arises when the model is too flexible to the underlying pattern. In the later case it is said that the model has \u201cmemorized\u201d the training data.\n\nAn example of underfitting is estimating a second order polynomial(quadratic function) with a first order polynomial(a simple line). Similarly, estimating a line with a 10th order polynomial would be an example of overfitting.",
+    "tags": [
+      "fundamentals"
+    ]
+  },
+  {
+    "id": 4,
+    "question": "How do you combat the curse of dimensionality? [[src](http://houseofbots.com/news-detail/2849-4-data-science-and-machine-learning-interview-questions)]",
+    "answer": "- Feature Selection(manual or via statistical methods)\n - Principal Component Analysis (PCA)\n - Multidimensional Scaling\n - Locally linear embedding  \n[[src]](https://towardsdatascience.com/why-and-how-to-get-rid-of-the-curse-of-dimensionality-right-with-breast-cancer-dataset-7d528fb5f6c0)",
+    "tags": [
+      "nlp"
+    ]
+  },
+  {
+    "id": 5,
+    "question": "What is regularization, why do we use it, and give some examples of common methods? [[src](http://houseofbots.com/news-detail/2849-4-data-science-and-machine-learning-interview-questions)]",
+    "answer": "A technique that discourages learning a more complex or flexible model, so as to avoid the risk of overfitting. \nExamples\n - Ridge (L2 norm)\n - Lasso (L1 norm)  \nThe obvious *disadvantage* of **ridge** regression, is model interpretability. It will shrink the coefficients for least important predictors, very close to zero. But it will never make them exactly zero. In other words, the *final model will include all predictors*. However, in the case of the **lasso**, the L1 penalty has the effect of forcing some of the coefficient estimates to be *exactly equal* to zero when the tuning parameter \u03bb is sufficiently large. Therefore, the lasso method also performs variable selection and is said to yield sparse models.\n[[src]](https://towardsdatascience.com/regularization-in-machine-learning-76441ddcf99a)",
+    "tags": [
+      "fundamentals"
+    ]
+  },
+  {
+    "id": 6,
+    "question": "Explain Principal Component Analysis (PCA)? [[src](http://houseofbots.com/news-detail/2849-4-data-science-and-machine-learning-interview-questions)]",
+    "answer": "[[Answer]](https://towardsdatascience.com/a-one-stop-shop-for-principal-component-analysis-5582fb7e0a9c)\n\nPrincipal Component Analysis (PCA) is a dimensionality reduction technique used in machine learning to reduce the number of features in a dataset while retaining as much information as possible. It works by identifying the directions (principal components) in which the data varies the most, and projecting the data onto a lower-dimensional subspace along these directions.",
+    "tags": [
+      "general_ml"
+    ]
+  },
+  {
+    "id": 7,
+    "question": "Why is ReLU better and more often used than Sigmoid in Neural Networks? [[src](http://houseofbots.com/news-detail/2849-4-data-science-and-machine-learning-interview-questions)]",
+    "answer": "* Computation Efficiency:\n  As ReLU is a simple threshold the forward and backward path will be faster.\n* Reduced Likelihood of Vanishing Gradient:\n  Gradient of ReLU is 1 for positive values and 0 for negative values while Sigmoid activation saturates (gradients close to 0) quickly with slightly higher or lower inputs leading to vanishing gradients.\n* Sparsity:\n  Sparsity happens when the input of ReLU is negative. This means fewer neurons are firing ( sparse activation ) and the network is lighter. \n\n\n[[src1]](https://medium.com/the-theory-of-everything/understanding-activation-functions-in-neural-networks-9491262884e0) [[src2]](https://stats.stackexchange.com/questions/126238/what-are-the-advantages-of-relu-over-sigmoid-function-in-deep-neural-networks)",
+    "tags": [
+      "optimization"
+    ]
+  },
+  {
+    "id": 8,
+    "question": "Given stride S and kernel sizes  for each layer of a (1-dimensional) CNN, create a function to compute the [receptive field](https://www.quora.com/What-is-a-receptive-field-in-a-convolutional-neural-network) of a particular node in the network. This is just finding how many input nodes actually connect through to a neuron in a CNN. [[src](https://www.reddit.com/r/computervision/comments/7gku4z/technical_interview_questions_in_cv/)]",
+    "answer": "The receptive field are defined portion of space within an inputs that will be used during an operation to generate an output.\n\nConsidering a CNN filter of size k, the receptive field of a peculiar layer is only the number of input used by the filter, in this case k, multiplied by the dimension of the input that is not being reduced by the convolutionnal filter a. This results in a receptive field of k*a.\n\nMore visually, in the case of an image of size 32x32x3, with a CNN with a filter size of 5x5, the corresponding recpetive field will be the the filter size, 5 multiplied by the depth of the input volume (the RGB colors) which is the color dimensio. This thus gives us a recpetive field of dimension 5x5x3.",
+    "tags": [
+      "computer_vision"
+    ]
+  },
+  {
+    "id": 9,
+    "question": "Implement [connected components](http://aishack.in/tutorials/labelling-connected-components-example/) on an image/matrix. [[src](https://www.reddit.com/r/computervision/comments/7gku4z/technical_interview_questions_in_cv/)]",
+    "answer": "",
+    "tags": [
+      "computer_vision"
+    ]
+  },
+  {
+    "id": 10,
+    "question": "Implement a sparse matrix class in C++. [[src](https://www.reddit.com/r/computervision/comments/7gku4z/technical_interview_questions_in_cv/)]",
+    "answer": "[[Answer]](https://www.geeksforgeeks.org/sparse-matrix-representation/)",
+    "tags": [
+      "general_ml"
+    ]
+  },
+  {
+    "id": 11,
+    "question": "Create a function to compute an [integral image](https://en.wikipedia.org/wiki/Summed-area_table), and create another function to get area sums from the integral image.[[src](https://www.reddit.com/r/computervision/comments/7gku4z/technical_interview_questions_in_cv/)]",
+    "answer": "[[Answer]](https://www.geeksforgeeks.org/submatrix-sum-queries/)",
+    "tags": [
+      "computer_vision"
+    ]
+  },
+  {
+    "id": 12,
+    "question": "How would you remove outliers when trying to estimate a flat plane from noisy samples? [[src](https://www.reddit.com/r/computervision/comments/7gku4z/technical_interview_questions_in_cv/)]",
+    "answer": "Random sample consensus (RANSAC) is an iterative method to estimate parameters of a mathematical model from a set of observed data that contains outliers, when outliers are to be accorded no influence on the values of the estimates.\n[[src]](https://en.wikipedia.org/wiki/Random_sample_consensus)",
+    "tags": [
+      "general_ml"
+    ]
+  },
+  {
+    "id": 13,
+    "question": "How does [CBIR](https://www.robots.ox.ac.uk/~vgg/publications/2013/arandjelovic13/arandjelovic13.pdf) work? [[src](https://www.reddit.com/r/computervision/comments/7gku4z/technical_interview_questions_in_cv/)]",
+    "answer": "[[Answer]](https://en.wikipedia.org/wiki/Content-based_image_retrieval)\nContent-based image retrieval is the concept of using images to gather metadata on their content. Compared to the current image retrieval approach based on the keywords associated to the images, this technique generates its metadata from computer vision techniques to extract the relevant informations that will be used during the querying step. Many approach are possible from feature detection to retrieve keywords to the usage of CNN to extract dense features that will be associated to a known distribution of keywords. \n\nWith this last approach, we care less about what is shown on the image but more about the similarity between the metadata generated by a known image and a list of known label and or tags projected into this metadata space.",
+    "tags": [
+      "computer_vision"
+    ]
+  },
+  {
+    "id": 14,
+    "question": "How does image registration work? Sparse vs. dense [optical flow](http://www.ncorr.com/download/publications/bakerunify.pdf) and so on. [[src](https://www.reddit.com/r/computervision/comments/7gku4z/technical_interview_questions_in_cv/)]",
+    "answer": "",
+    "tags": [
+      "computer_vision"
+    ]
+  },
+  {
+    "id": 15,
+    "question": "Describe how convolution works. What about if your inputs are grayscale vs RGB imagery? What determines the shape of the next layer?[[src](https://www.reddit.com/r/computervision/comments/7gku4z/technical_interview_questions_in_cv/)]",
+    "answer": "In a convolutional neural network (CNN), the convolution operation is applied to the input image using a small matrix called a kernel or filter. The kernel slides over the image in small steps, called strides, and performs element-wise multiplications with the corresponding elements of the image and then sums up the results. The output of this operation is called a feature map.\n\nWhen the input is RGB(or more than 3 channels) the sliding window will be a sliding cube. The shape of the next layer is determined by Kernel size, number of kernels, stride, padding, and dialation.\n\n[[src1]](https://dev.to/sandeepbalachandran/machine-learning-convolution-with-color-images-2p41)[[src2]](https://stackoverflow.com/questions/70231487/output-dimensions-of-convolution-in-pytorch)",
+    "tags": [
+      "computer_vision"
+    ]
+  },
+  {
+    "id": 16,
+    "question": "Talk me through how you would create a 3D model of an object from imagery and depth sensor measurements taken at all angles around the object. [[src](https://www.reddit.com/r/computervision/comments/7gku4z/technical_interview_questions_in_cv/)]",
+    "answer": "There are two popular methods for 3D reconstruction:\n* Structure from Motion (SfM) [[src]](https://www.mathworks.com/help/vision/ug/structure-from-motion.html)\n\n* Multi-View Stereo (MVS) [[src]](https://www.youtube.com/watch?v=Zwwty2qPNs8)\n\nSfM is better suited for creating models of large scenes while MVS is better suited for creating models of small objects.",
+    "tags": [
+      "computer_vision"
+    ]
+  },
+  {
+    "id": 17,
+    "question": "Implement SQRT(const double & x) without using any special functions, just fundamental arithmetic. [[src](https://www.reddit.com/r/computervision/comments/7gku4z/technical_interview_questions_in_cv/)]",
+    "answer": "The taylor series can be used for this step by providing an approximation of sqrt(x):\n\n[[Answer]](https://math.stackexchange.com/questions/732540/taylor-series-of-sqrt1x-using-sigma-notation)",
+    "tags": [
+      "general_ml"
+    ]
+  },
+  {
+    "id": 18,
+    "question": "Reverse a bitstring. [[src](https://www.reddit.com/r/computervision/comments/7gku4z/technical_interview_questions_in_cv/)]",
+    "answer": "If you are using python3 :\n\n```\ndata = b'\\xAD\\xDE\\xDE\\xC0'\nmy_data = bytearray(data)\nmy_data.reverse()\n```",
+    "tags": [
+      "general_ml"
+    ]
+  },
+  {
+    "id": 19,
+    "question": "Implement non maximal suppression as efficiently as you can. [[src](https://www.reddit.com/r/computervision/comments/7gku4z/technical_interview_questions_in_cv/)]",
+    "answer": "Non-Maximum Suppression (NMS) is a technique used to eliminate multiple detections of the same object in a given image.\nTo solve that first sort bounding boxes based on their scores(N LogN). Starting with the box with the highest score, remove boxes whose overlapping metric(IoU) is greater than a certain threshold.(N^2)\n\nTo optimize this solution you can use special data structures to query for overlapping boxes such as R-tree or KD-tree. (N LogN)\n[[src]](https://towardsdatascience.com/non-maxima-suppression-139f7e00f0b5)",
+    "tags": [
+      "computer_vision"
+    ]
+  },
+  {
+    "id": 20,
+    "question": "Reverse a linked list in place. [[src](https://www.reddit.com/r/computervision/comments/7gku4z/technical_interview_questions_in_cv/)]",
+    "answer": "[[Answer]](https://www.geeksforgeeks.org/reverse-a-linked-list/)",
+    "tags": [
+      "general_ml"
+    ]
+  },
+  {
+    "id": 21,
+    "question": "What is data normalization and why do we need it? [[src](http://houseofbots.com/news-detail/2849-4-data-science-and-machine-learning-interview-questions)]",
+    "answer": "Data normalization is very important preprocessing step, used to rescale values to fit in a specific range to assure better convergence during backpropagation. In general, it boils down to subtracting the mean of each data point and dividing by its standard deviation. If we don't do this then some of the features (those with high magnitude) will be weighted more in the cost function (if a higher-magnitude feature changes by 1%, then that change is pretty big, but for smaller features it's quite insignificant). The data normalization makes all features weighted equally.",
+    "tags": [
+      "optimization",
+      "fundamentals"
+    ]
+  },
+  {
+    "id": 22,
+    "question": "Why do we use convolutions for images rather than just FC layers? [[src](http://houseofbots.com/news-detail/2849-4-data-science-and-machine-learning-interview-questions)]",
+    "answer": "Firstly, convolutions preserve, encode, and actually use the spatial information from the image. If we used only FC layers we would have no relative spatial information. Secondly, Convolutional Neural Networks (CNNs) have a partially built-in translation in-variance, since each convolution kernel acts as it's own filter/feature detector.",
+    "tags": [
+      "computer_vision",
+      "fundamentals"
+    ]
+  },
+  {
+    "id": 23,
+    "question": "What makes CNNs translation invariant? [[src](http://houseofbots.com/news-detail/2849-4-data-science-and-machine-learning-interview-questions)]",
+    "answer": "As explained above, each convolution kernel acts as it's own filter/feature detector. So let's say you're doing object detection, it doesn't matter where in the image the object is since we're going to apply the convolution in a sliding window fashion across the entire image anyways.",
+    "tags": [
+      "computer_vision"
+    ]
+  },
+  {
+    "id": 24,
+    "question": "Why do we have max-pooling in classification CNNs? [[src](http://houseofbots.com/news-detail/2849-4-data-science-and-machine-learning-interview-questions)]",
+    "answer": "for a role in Computer Vision. Max-pooling in a CNN allows you to reduce computation since your feature maps are smaller after the pooling. You don't lose too much semantic information since you're taking the maximum activation. There's also a theory that max-pooling contributes a bit to giving CNNs more translation in-variance. Check out this great video from Andrew Ng on the [benefits of max-pooling](https://www.coursera.org/learn/convolutional-neural-networks/lecture/hELHk/pooling-layers).",
+    "tags": [
+      "computer_vision",
+      "fundamentals"
+    ]
+  },
+  {
+    "id": 25,
+    "question": "Why do segmentation CNNs typically have an encoder-decoder style / structure? [[src](http://houseofbots.com/news-detail/2849-4-data-science-and-machine-learning-interview-questions)]",
+    "answer": "The encoder CNN can basically be thought of as a feature extraction network, while the decoder uses that information to predict the image segments by \"decoding\" the features and upscaling to the original image size.",
+    "tags": [
+      "computer_vision"
+    ]
+  },
+  {
+    "id": 26,
+    "question": "What is the significance of Residual Networks? [[src](http://houseofbots.com/news-detail/2849-4-data-science-and-machine-learning-interview-questions)]",
+    "answer": "The main thing that residual connections did was allow for direct feature access from previous layers. This makes information propagation throughout the network much easier. One very interesting paper about this shows how using local skip connections gives the network a type of ensemble multi-path structure, giving features multiple paths to propagate throughout the network.",
+    "tags": [
+      "general_ml"
+    ]
+  },
+  {
+    "id": 27,
+    "question": "What is batch normalization and why does it work? [[src](http://houseofbots.com/news-detail/2849-4-data-science-and-machine-learning-interview-questions)]",
+    "answer": "Training Deep Neural Networks is complicated by the fact that the distribution of each layer's inputs changes during training, as the parameters of the previous layers change. The idea is then to normalize the inputs of each layer in such a way that they have a mean output activation of zero and standard deviation of one. This is done for each individual mini-batch at each layer i.e compute the mean and variance of that mini-batch alone, then normalize. This is analogous to how the inputs to networks are standardized. How does this help? We know that normalizing the inputs to a network helps it learn. But a network is just a series of layers, where the output of one layer becomes the input to the next. That means we can think of any layer in a neural network as the first layer of a smaller subsequent network. Thought of as a series of neural networks feeding into each other, we normalize the output of one layer before applying the activation function, and then feed it into the following layer (sub-network).",
+    "tags": [
+      "fundamentals"
+    ]
+  },
+  {
+    "id": 28,
+    "question": "Why would you use many small convolutional kernels such as 3x3 rather than a few large ones? [[src](http://houseofbots.com/news-detail/2849-4-data-science-and-machine-learning-interview-questions)]",
+    "answer": "This is very well explained in the [VGGNet paper](https://arxiv.org/pdf/1409.1556.pdf). There are 2 reasons: First, you can use several smaller kernels rather than few large ones to get the same receptive field and capture more spatial context, but with the smaller kernels you are using less parameters and computations. Secondly, because with smaller kernels you will be using more filters, you'll be able to use more activation functions and thus have a more discriminative mapping function being learned by your CNN.",
+    "tags": [
+      "nlp",
+      "computer_vision"
+    ]
+  },
+  {
+    "id": 29,
+    "question": "Why do we need a validation set and test set? What is the difference between them? [[src](https://www.toptal.com/machine-learning/interview-questions)]",
+    "answer": "When training a model, we divide the available data into three separate sets:\n\n - The training dataset is used for fitting the model\u2019s parameters. However, the accuracy that we achieve on the training set is not reliable for predicting if the model will be accurate on new samples.\n - The validation dataset is used to measure how well the model does on examples that weren\u2019t part of the training dataset. The metrics computed on the validation data can be used to tune the hyperparameters of the model. However, every time we evaluate the validation data and we make decisions based on those scores, we are leaking information from the validation data into our model. The more evaluations, the more information is leaked. So we can end up overfitting to the validation data, and once again the validation score won\u2019t be reliable for predicting the behaviour of the model in the real world.\n - The test dataset is used to measure how well the model does on previously unseen examples. It should only be used once we have tuned the parameters using the validation set.\n\nSo if we omit the test set and only use a validation set, the validation score won\u2019t be a good estimate of the generalization of the model.",
+    "tags": [
+      "fundamentals"
+    ]
+  },
+  {
+    "id": 30,
+    "question": "What is stratified cross-validation and when should we use it? [[src](https://www.toptal.com/machine-learning/interview-questions)]",
+    "answer": "Cross-validation is a technique for dividing data between training and validation sets. On typical cross-validation this split is done randomly. But in stratified cross-validation, the split preserves the ratio of the categories on both the training and validation datasets.\n\nFor example, if we have a dataset with 10% of category A and 90% of category B, and we use stratified cross-validation, we will have the same proportions in training and validation. In contrast, if we use simple cross-validation, in the worst case we may find that there are no samples of category A in the validation set.\n\nStratified cross-validation may be applied in the following scenarios:\n\n - On a dataset with multiple categories. The smaller the dataset and the more imbalanced the categories, the more important it will be to use stratified cross-validation.\n - On a dataset with data of different distributions. For example, in a dataset for autonomous driving, we may have images taken during the day and at night. If we do not ensure that both types are present in training and validation, we will have generalization problems.",
+    "tags": [
+      "computer_vision",
+      "fundamentals"
+    ]
+  },
+  {
+    "id": 31,
+    "question": "Why do ensembles typically have higher scores than individual models? [[src](https://www.toptal.com/machine-learning/interview-questions)]",
+    "answer": "An ensemble is the combination of multiple models to create a single prediction. The key idea for making better predictions is that the models should make different errors. That way the errors of one model will be compensated by the right guesses of the other models and thus the score of the ensemble will be higher.\n\nWe need diverse models for creating an ensemble. Diversity can be achieved by:\n - Using different ML algorithms. For example, you can combine logistic regression, k-nearest neighbors, and decision trees.\n - Using different subsets of the data for training. This is called bagging.\n - Giving a different weight to each of the samples of the training set. If this is done iteratively, weighting the samples according to the errors of the ensemble, it\u2019s called boosting.\nMany winning solutions to data science competitions are ensembles. However, in real-life machine learning projects, engineers need to find a balance between execution time and accuracy.",
+    "tags": [
+      "general_ml"
+    ]
+  },
+  {
+    "id": 32,
+    "question": "What is an imbalanced dataset? Can you list some ways to deal with it? [[src](https://www.toptal.com/machine-learning/interview-questions)]",
+    "answer": "An imbalanced dataset is one that has different proportions of target categories. For example, a dataset with medical images where we have to detect some illness will typically have many more negative samples than positive samples\u2014say, 98% of images are without the illness and 2% of images are with the illness.\n\nThere are different options to deal with imbalanced datasets:\n - Oversampling or undersampling. Instead of sampling with a uniform distribution from the training dataset, we can use other distributions so the model sees a more balanced dataset.\n - Data augmentation. We can add data in the less frequent categories by modifying existing data in a controlled way. In the example dataset, we could flip the images with illnesses, or add noise to copies of the images in such a way that the illness remains visible.\n - Using appropriate metrics. In the example dataset, if we had a model that always made negative predictions, it would achieve a precision of 98%. There are other metrics such as precision, recall, and F-score that describe the accuracy of the model better when using an imbalanced dataset.",
+    "tags": [
+      "computer_vision",
+      "fundamentals"
+    ]
+  },
+  {
+    "id": 33,
+    "question": "Can you explain the differences between supervised, unsupervised, and reinforcement learning? [[src](https://www.toptal.com/machine-learning/interview-questions)]",
+    "answer": "In supervised learning, we train a model to learn the relationship between input data and output data. We need to have labeled data to be able to do supervised learning.\n\nWith unsupervised learning, we only have unlabeled data. The model learns a representation of the data. Unsupervised learning is frequently used to initialize the parameters of the model when we have a lot of unlabeled data and a small fraction of labeled data. We first train an unsupervised model and, after that, we use the weights of the model to train a supervised model.\n\nIn reinforcement learning, the model has some input data and a reward depending on the output of the model. The model learns a policy that maximizes the reward. Reinforcement learning has been applied successfully to strategic games such as Go and even classic Atari video games.",
+    "tags": [
+      "general_ml"
+    ]
+  },
+  {
+    "id": 34,
+    "question": "What is data augmentation? Can you give some examples? [[src](https://www.toptal.com/machine-learning/interview-questions)]",
+    "answer": "Data augmentation is a technique for synthesizing new data by modifying existing data in such a way that the target is not changed, or it is changed in a known way.\n\nComputer vision is one of fields where data augmentation is very useful. There are many modifications that we can do to images:\n - Resize\n - Horizontal or vertical flip\n - Rotate\n - Add noise\n - Deform\n - Modify colors\nEach problem needs a customized data augmentation pipeline. For example, on OCR, doing flips will change the text and won\u2019t be beneficial; however, resizes and small rotations may help.",
+    "tags": [
+      "nlp",
+      "computer_vision"
+    ]
+  },
+  {
+    "id": 35,
+    "question": "What is Turing test? [[src](https://intellipaat.com/interview-question/artificial-intelligence-interview-questions/)]",
+    "answer": "The Turing test is a method to test the machine\u2019s ability to match the human level intelligence. A machine is used to challenge the human intelligence that when it passes the test, it is considered as intelligent. Yet a machine could be viewed as intelligent without sufficiently knowing about people to mimic a human.",
+    "tags": [
+      "general_ml"
+    ]
+  },
+  {
+    "id": 36,
+    "question": "What is Precision?",
+    "answer": "Precision (also called positive predictive value) is the fraction of relevant instances among the retrieved instances  \nPrecision = true positive / (true positive + false positive)  \n[[src]](https://en.wikipedia.org/wiki/Precision_and_recall)",
+    "tags": [
+      "fundamentals"
+    ]
+  },
+  {
+    "id": 37,
+    "question": "What is Recall?",
+    "answer": "Recall (also known as sensitivity) is the fraction of relevant instances that have been retrieved over the total amount of relevant instances.\nRecall = true positive / (true positive + false negative)  \n[[src]](https://en.wikipedia.org/wiki/Precision_and_recall)",
+    "tags": [
+      "fundamentals"
+    ]
+  },
+  {
+    "id": 38,
+    "question": "Define F1-score. [[src](https://intellipaat.com/interview-question/artificial-intelligence-interview-questions/)]",
+    "answer": "It is the weighted average of precision and recall. It considers both false positive and false negative into account. It is used to measure the model\u2019s performance.  \nF1-Score = 2 * (precision * recall) / (precision + recall)",
+    "tags": [
+      "fundamentals"
+    ]
+  },
+  {
+    "id": 39,
+    "question": "What is cost function? [[src](https://intellipaat.com/interview-question/artificial-intelligence-interview-questions/)]",
+    "answer": "Cost function is a scalar functions which Quantifies the error factor of the Neural Network. Lower the cost function better the Neural network. Eg: MNIST Data set to classify the image, input image is digit 2 and the Neural network wrongly predicts it to be 3",
+    "tags": [
+      "computer_vision"
+    ]
+  },
+  {
+    "id": 40,
+    "question": "List different activation neurons or functions. [[src](https://intellipaat.com/interview-question/artificial-intelligence-interview-questions/)]",
+    "answer": "- Linear Neuron\n - Binary Threshold Neuron\n - Stochastic Binary Neuron\n - Sigmoid Neuron\n - Tanh function\n - Rectified Linear Unit (ReLU)",
+    "tags": [
+      "general_ml"
+    ]
+  },
+  {
+    "id": 41,
+    "question": "Define Learning Rate.",
+    "answer": "Learning rate is a hyper-parameter that controls how much we are adjusting the weights of our network with respect the loss gradient. [[src](https://en.wikipedia.org/wiki/Learning_rate)]",
+    "tags": [
+      "optimization"
+    ]
+  },
+  {
+    "id": 42,
+    "question": "What is Momentum (w.r.t NN optimization)?",
+    "answer": "Momentum lets the optimization algorithm remembers its last step, and adds some proportion of it to the current step. This way, even if the algorithm is stuck in a flat region, or a small local minimum, it can get out and continue towards the true minimum. [[src]](https://www.quora.com/What-is-the-difference-between-momentum-and-learning-rate)",
+    "tags": [
+      "optimization"
+    ]
+  },
+  {
+    "id": 43,
+    "question": "What is the difference between Batch Gradient Descent and Stochastic Gradient Descent?",
+    "answer": "Batch gradient descent computes the gradient using the whole dataset. This is great for convex, or relatively smooth error manifolds. In this case, we move somewhat directly towards an optimum solution, either local or global. Additionally, batch gradient descent, given an annealed learning rate, will eventually find the minimum located in it's basin of attraction.\n\nStochastic gradient descent (SGD) computes the gradient using a single sample. SGD works well (Not well, I suppose, but better than batch gradient descent) for error manifolds that have lots of local maxima/minima. In this case, the somewhat noisier gradient calculated using the reduced number of samples tends to jerk the model out of local minima into a region that hopefully is more optimal. [[src]](https://stats.stackexchange.com/questions/49528/batch-gradient-descent-versus-stochastic-gradient-descent)",
+    "tags": [
+      "optimization"
+    ]
+  },
+  {
+    "id": 44,
+    "question": "Epoch vs. Batch vs. Iteration.",
+    "answer": "- **Epoch**: one forward pass and one backward pass of **all** the training examples  \n - **Batch**: examples processed together in one pass (forward and backward)  \n - **Iteration**: number of training examples / Batch size",
+    "tags": [
+      "fundamentals"
+    ]
+  },
+  {
+    "id": 45,
+    "question": "What is vanishing gradient? [[src](https://intellipaat.com/interview-question/artificial-intelligence-interview-questions/)]",
+    "answer": "As we add more and more hidden layers, back propagation becomes less and less useful in passing information to the lower layers. In effect, as information is passed back, the gradients begin to vanish and become small relative to the weights of the networks.",
+    "tags": [
+      "optimization"
+    ]
+  },
+  {
+    "id": 46,
+    "question": "What are dropouts? [[src](https://intellipaat.com/interview-question/artificial-intelligence-interview-questions/)]",
+    "answer": "Dropout is a simple way to prevent a neural network from overfitting. It is the dropping out of some of the units in a neural network. It is similar to the natural reproduction process, where the nature produces offsprings by combining distinct genes (dropping out others) rather than strengthening the co-adapting of them.",
+    "tags": [
+      "fundamentals"
+    ]
+  },
+  {
+    "id": 47,
+    "question": "Define LSTM. [[src](https://intellipaat.com/interview-question/artificial-intelligence-interview-questions/)]",
+    "answer": "Long Short Term Memory \u2013 are explicitly designed to address the long term dependency problem, by maintaining a state what to remember and what to forget.",
+    "tags": [
+      "sequence_models"
+    ]
+  },
+  {
+    "id": 48,
+    "question": "List the key components of LSTM. [[src](https://intellipaat.com/interview-question/artificial-intelligence-interview-questions/)]",
+    "answer": "- Gates (forget, Memory, update & Read)\n - tanh(x) (values between -1 to 1)\n - Sigmoid(x) (values between 0 to 1)",
+    "tags": [
+      "sequence_models"
+    ]
+  },
+  {
+    "id": 49,
+    "question": "List the variants of RNN. [[src](https://intellipaat.com/interview-question/artificial-intelligence-interview-questions/)]",
+    "answer": "- LSTM: Long Short Term Memory\n - GRU: Gated Recurrent Unit\n - End to End Network\n - Memory Network",
+    "tags": [
+      "sequence_models"
+    ]
+  },
+  {
+    "id": 50,
+    "question": "What is Autoencoder, name few applications. [[src](https://intellipaat.com/interview-question/artificial-intelligence-interview-questions/)]",
+    "answer": "Auto encoder is basically used to learn a compressed form of given data. Few applications include\n - Data denoising\n - Dimensionality reduction\n - Image reconstruction\n - Image colorization",
+    "tags": [
+      "computer_vision"
+    ]
+  },
+  {
+    "id": 51,
+    "question": "What are the components of GAN? [[src](https://intellipaat.com/interview-question/artificial-intelligence-interview-questions/)]",
+    "answer": "- Generator\n - Discriminator",
+    "tags": [
+      "general_ml"
+    ]
+  },
+  {
+    "id": 52,
+    "question": "What's the difference between boosting and bagging?",
+    "answer": "Boosting and bagging are similar, in that they are both ensembling techniques, where a number of weak learners (classifiers/regressors that are barely better than guessing) combine (through averaging or max vote) to create a strong learner that can make accurate predictions. Bagging means that you take bootstrap samples (with replacement) of your data set and each sample trains a (potentially) weak learner. Boosting, on the other hand, uses all data to train each learner, but instances that were misclassified by the previous learners are given more weight so that subsequent learners give more focus to them during training. [[src]](https://www.quora.com/Whats-the-difference-between-boosting-and-bagging)",
+    "tags": [
+      "general_ml"
+    ]
+  },
+  {
+    "id": 53,
+    "question": "Explain how a ROC curve works.",
+    "answer": "The ROC curve is a graphical representation of the contrast between true positive rates and the false positive rate at various thresholds. It\u2019s often used as a proxy for the trade-off between the sensitivity of the model (true positives) vs the fall-out or the probability it will trigger a false alarm (false positives).",
+    "tags": [
+      "fundamentals"
+    ]
+  },
+  {
+    "id": 54,
+    "question": "What\u2019s the difference between Type I and Type II error?",
+    "answer": "Type I error is a false positive, while Type II error is a false negative. Briefly stated, Type I error means claiming something has happened when it hasn\u2019t, while Type II error means that you claim nothing is happening when in fact something is.\nA clever way to think about this is to think of Type I error as telling a man he is pregnant, while Type II error means you tell a pregnant woman she isn\u2019t carrying a baby.",
+    "tags": [
+      "general_ml"
+    ]
+  },
+  {
+    "id": 55,
+    "question": "What\u2019s the difference between a generative and discriminative model?",
+    "answer": "A generative model will learn categories of data while a discriminative model will simply learn the distinction between different categories of data. Discriminative models will generally outperform generative models on classification tasks.",
+    "tags": [
+      "general_ml"
+    ]
+  },
+  {
+    "id": 56,
+    "question": "Instance-Based Versus Model-Based Learning.",
+    "answer": "- **Instance-based Learning**: The system learns the examples by heart, then generalizes to new cases using a similarity measure.\n\n - **Model-based Learning**: Another way to generalize from a set of examples is to build a model of these examples, then use that model to make predictions. This is called model-based learning.\n[[src]](https://medium.com/@sanidhyaagrawal08/what-is-instance-based-and-model-based-learning-s1e10-8e68364ae084)",
+    "tags": [
+      "general_ml"
+    ]
+  },
+  {
+    "id": 57,
+    "question": "When to use a Label Encoding vs. One Hot Encoding?",
+    "answer": "This question generally depends on your dataset and the model which you wish to apply. But still, a few points to note before choosing the right encoding technique for your model:\n\nWe apply One-Hot Encoding when:\n\n- The categorical feature is not ordinal (like the countries above)\n- The number of categorical features is less so one-hot encoding can be effectively applied\n\nWe apply Label Encoding when:\n\n- The categorical feature is ordinal (like Jr. kg, Sr. kg, Primary school, high school)\n- The number of categories is quite large as one-hot encoding can lead to high memory consumption\n\n[[src]](https://www.analyticsvidhya.com/blog/2020/03/one-hot-encoding-vs-label-encoding-using-scikit-learn/)",
+    "tags": [
+      "general_ml"
+    ]
+  },
+  {
+    "id": 58,
+    "question": "What is the difference between LDA and PCA for dimensionality reduction?",
+    "answer": "Both LDA and PCA are linear transformation techniques: LDA is a supervised whereas PCA is unsupervised \u2013 PCA ignores class labels.\n\nWe can picture PCA as a technique that finds the directions of maximal variance. In contrast to PCA, LDA attempts to find a feature subspace that maximizes class separability.\n\n[[src]](https://sebastianraschka.com/faq/docs/lda-vs-pca.html)",
+    "tags": [
+      "fundamentals"
+    ]
+  },
+  {
+    "id": 59,
+    "question": "What is t-SNE?",
+    "answer": "t-Distributed Stochastic Neighbor Embedding (t-SNE) is an unsupervised, non-linear technique primarily used for data exploration and visualizing high-dimensional data. In simpler terms, t-SNE gives you a feel or intuition of how the data is arranged in a high-dimensional space. \n\n[[src]](https://towardsdatascience.com/an-introduction-to-t-sne-with-python-example-5a3a293108d1)",
+    "tags": [
+      "nlp"
+    ]
+  },
+  {
+    "id": 60,
+    "question": "What is the difference between t-SNE and PCA for dimensionality reduction?",
+    "answer": "The first thing to note is that PCA was developed in 1933 while t-SNE was developed in 2008. A lot has changed in the world of data science since 1933 mainly in the realm of compute and size of data. Second, PCA is a linear dimension reduction technique that seeks to maximize variance and preserves large pairwise distances. In other words, things that are different end up far apart. This can lead to poor visualization especially when dealing with non-linear manifold structures. Think of a manifold structure as any geometric shape like: cylinder, ball, curve, etc.\n\nt-SNE differs from PCA by preserving only small pairwise distances or local similarities whereas PCA is concerned with preserving large pairwise distances to maximize variance.\n\n[[src]](https://towardsdatascience.com/an-introduction-to-t-sne-with-python-example-5a3a293108d1)",
+    "tags": [
+      "fundamentals"
+    ]
+  },
+  {
+    "id": 61,
+    "question": "What is UMAP?",
+    "answer": "UMAP (Uniform Manifold Approximation and Projection) is a novel manifold learning technique for dimension reduction. UMAP is constructed from a theoretical framework based in Riemannian geometry and algebraic topology. The result is a practical scalable algorithm that applies to real world data.\n\n[[src]](https://arxiv.org/abs/1802.03426#:~:text=UMAP%20)",
+    "tags": [
+      "nlp"
+    ]
+  },
+  {
+    "id": 62,
+    "question": "What is the difference between t-SNE and UMAP for dimensionality reduction?",
+    "answer": "The biggest difference between the output of UMAP when compared with t-SNE is this balance between local and global structure - UMAP is often better at preserving global structure in the final projection. This means that the inter-cluster relations are potentially more meaningful than in t-SNE. However, it's important to note that, because UMAP and t-SNE both necessarily warp the high-dimensional shape of the data when projecting to lower dimensions, any given axis or distance in lower dimensions still isn\u2019t directly interpretable in the way of techniques such as PCA.\n\n[[src]](https://pair-code.github.io/understanding-umap/)",
+    "tags": [
+      "general_ml"
+    ]
+  },
+  {
+    "id": 63,
+    "question": "How Random Number Generator Works, e.g. rand() function in python works?",
+    "answer": "It generates a pseudo random number based on the seed and there are some famous algorithm, please see below link for further information on this.\n[[src]](https://en.wikipedia.org/wiki/Linear_congruential_generator)",
+    "tags": [
+      "sequence_models"
+    ]
+  },
+  {
+    "id": 64,
+    "question": "Given that we want to evaluate the performance of 'n' different machine learning models on the same data, why would the following splitting mechanism be incorrect :",
+    "answer": "```\ndef get_splits():\n    df = pd.DataFrame(...)\n    rnd = np.random.rand(len(df))\n    train = df[ rnd < 0.8 ]\n    valid = df[ rnd >= 0.8 & rnd < 0.9 ]\n    test = df[ rnd >= 0.9 ]\n\n    return train, valid, test\n\n#Model 1\n\nfrom sklearn.tree import DecisionTreeClassifier\ntrain, valid, test = get_splits()\n...\n\n#Model 2\n\nfrom sklearn.linear_model import LogisticRegression\ntrain, valid, test = get_splits()\n...\n```\nThe rand() function orders the data differently each time it is run, so if we run the splitting mechanism again, the 80% of the rows we get will be different from the ones we got the first time it was run. This presents an issue as we need to compare the performance of our models on the same test set. In order to ensure reproducible and consistent sampling we would have to set the random seed in advance or store the data once it is split. Alternatively, we could simply set the 'random_state' parameter in sklearn's train_test_split() function in order to get the same train, validation and test sets across different executions. \n\n[[src]](https://towardsdatascience.com/why-do-we-set-a-random-state-in-machine-learning-models-bb2dc68d8431#:~:text=In%20Scikit%2Dlearn%2C%20the%20random,random%20state%20instance%20from%20np.)",
+    "tags": [
+      "nlp"
+    ]
+  },
+  {
+    "id": 65,
+    "question": "What is the difference between Bayesian vs frequentist statistics?",
+    "answer": "Frequentist statistics is a framework that focuses on estimating population parameters using sample statistics, and providing point estimates and confidence intervals.\n\nBayesian statistics, on the other hand, is a framework that uses prior knowledge and information to update beliefs about a parameter or hypothesis, and provides probability distributions for parameters.\n\nThe main difference is that Bayesian statistics incorporates prior knowledge and beliefs into the analysis, while frequentist statistics doesn't.\n\n### 66) What is the basic difference between LSTM and Transformers? [[src]](https://blog.finxter.com/transformer-vs-lstm/#:~:text=LSTM%20models%20consist%20of%20RNN,feed-forward%20neural%20network%20components.)\nLSTMs (Long Short Term Memory) models consist of RNN cells designed to store and manipulate information across time steps more efficiently. In contrast, Transformer models contain a stack of encoder and decoder layers, each consisting of self attention and feed-forward neural network components. \n\n### 66) What are RCNNs? [[src]](https://towardsdatascience.com/learn-rcnns-with-this-toy-dataset-be19dce380ec)\nRecurrent Convolutional model is a model that is specially designed to make predictions using a sequence of images (more commonly also know as video). These models are used in object detection tasks in computer vision. The RCNN approach combines both region proposal techniques and convolutional neural networks (CNNs) to identify and locate objects within an image.\n\n\n## Contributions\nContributions are most welcomed.\n 1. Fork the repository.\n 2. Commit your *questions* or *answers*.\n 3. Open **pull request**.\n# 13 NLP Interview Questions 2026\nA collection of technical interview questions for machine learning and natural language processing positions.\n\nThe answer to all of these question were generated using ChatGPT!\n\n\n### 1. What is the difference between stemming and lemmatization? [[src]](https://www.projectpro.io/article/nlp-interview-questions-and-answers/439)\n\nStemming and lemmatization are both techniques used in natural language processing to reduce words to their base form. The main difference between the two is that stemming is a crude heuristic process that chops off the ends of words, while lemmatization is a more sophisticated process that uses vocabulary and morphological analysis to determine the base form of a word. Lemmatization is more accurate but also more computationally expensive.\n\nExample: The word \"better\"\n* Stemming: The stem of the word \"better\" is likely to be \"better\" (e.g. by using Porter stemmer)\n* Lemmatization: The base form of the word \"better\" is \"good\" (e.g. by using WordNetLemmatizer with POS tagger)\n\n### 2. What do you know about Latent Semantic Indexing (LSI)? [[src]](https://www.projectpro.io/article/nlp-interview-questions-and-answers/439)\nLatent Semantic Indexing (LSI) is a technique used in NLP and information retrieval to extract the underlying meaning or concepts from a collection of text documents. LSI uses mathematical techniques such as Singular Value Decomposition (SVD) to identify patterns and relationships in the co-occurrence of words within a corpus of text. LSI is based on the idea that words that are used in similar context tend to have similar meanings. \n\n### 3. What do you know about Dependency Parsing? [[src]](https://www.projectpro.io/article/nlp-interview-questions-and-answers/439)\nDependency parsing is a technique used in natural language processing to analyze the grammatical structure of a sentence, and to identify the relationships between its words. It is used to build a directed graph where words are represented as nodes, and grammatical relationships between words are represented as edges. Each node has one parent and can have multiple children, representing the grammatical relations between the words.\n\nThere are different algorithms for dependency parsing, such as the Earley parser, the CYK parser, and the shift-reduce parser. \n\n### 4. Name different approaches for text summarization. [[src]](https://www.projectpro.io/article/nlp-interview-questions-and-answers/439)\nThere are several different approaches to text summarization, including:\n* Extractive summarization: Selects the most important sentences or phrases from the original text.\n* Abstractive summarization: Generates new sentences that capture the key concepts and themes of the original text.\n* Latent Semantic Analysis (LSA) based summarization: Uses LSA to identify the key concepts in a text.\n* Latent Dirichlet Allocation (LDA) based summarization: Uses LDA to identify the topics in a text.\n* Neural-based summarization: Uses deep neural networks to generate a summary.\n\nEach approach has its own strengths and weaknesses and the choice of the approach will depend on the specific use case and the quality of the summary desired.\n\n### 5. What approach would you use for part of speech tagging? [[src]](https://www.projectpro.io/article/nlp-interview-questions-and-answers/439)\nThere are a few different approaches that can be used for part-of-speech (POS) tagging, such as:\n* Rule-based tagging: using pre-defined rules to tag text\n* Statistical tagging: using statistical models to tag text\n* Hybrid tagging: Combining rule-based and statistical methods\n* Neural-based tagging: using deep neural networks to tag text\n\n### 6. Explain what is a n-gram model. [[src]](https://www.projectpro.io/article/nlp-interview-questions-and-answers/439)\nAn n-gram model is a type of statistical language model used in NLP. It is based on the idea that the probability of a word in a sentence is dependent on the probability of the n-1 preceding words, where n is the number of words in the gram.\n\nThe model represents the text as a sequence of n-grams, where each n-gram is a sequence of n words. The model uses the frequency of each n-gram in a large corpus of text to estimate the probability of each word in a sentence, based on the n-1 preceding words.\n\n### 7. Explain how TF-IDF measures word importance. [[src]](https://www.projectpro.io/article/nlp-interview-questions-and-answers/439)\nTF-IDF (Term Frequency-Inverse Document Frequency) is a statistical measure used to evaluate the importance of a word in a document or collection of documents. It is calculated as the product of the term frequency (TF) and the inverse document frequency (IDF) of a word.\n\nThe term frequency (TF) of a word is the number of times the word appears in a document, normalized by the total number of words in the document.\n\nThe inverse document frequency (IDF) of a word is the logarithm of the total number of documents in the corpus divided by the number of documents in which the word appears.\n\n\n### 8. What is perplexity used for? [[src]](https://www.projectpro.io/article/nlp-interview-questions-and-answers/439)\nPerplexity is a statistical measure used to evaluate the quality of a probability model, particularly language models. It is used to quantify the uncertainty of a model when predicting the next word in a sequence of words. The lower the perplexity, the better the model is at predicting the sequence of words. \n\nSure, here's the formula for perplexity in LaTeX format:\n\nPerplexity = $2^{H(D)}$\n\n$H(D) = - {\\sum}_{i=1}^{N} {P(w_i)log_2{ P(w_i) }}$ [ref](https://en.wikipedia.org/wiki/Perplexity) \n\n$w_i$ = the i-th word in the sequence\n\n$N$ = the number of words in the sequence\n\n$P(w_i)$ = the probability of the i-th word according to the model\n\n### 9. What is Bag-of-Worrds model? [[src]](https://www.projectpro.io/article/nlp-interview-questions-and-answers/439)\nThe bag-of-words model is a representation of text data where a text is represented as a bag (multiset) of its words, disregarding grammar and word order but keeping track of the frequency of each word. It is simple to implement and computationally efficient, but it discards grammatical information and word order, which can be important for some NLP tasks.\n\n### 10. Explain how the Markov assumption affects the bi-gram model? [[src]](https://www.projectpro.io/article/nlp-interview-questions-and-answers/439)\nThe Markov assumption is an important concept in the bi-gram model, it states that the probability of a word in a sentence depends only on the preceding word. The Markov assumption simplifies the bi-gram model by reducing the number of variables that need to be considered, making the model computationally efficient, but it also limits the context that the model takes into account, which can lead to errors in the probability estimates. In practice, increasing the order of the n-gram model can be used to increase the context taken into account, thus increasing the model's accuracy.\n\n### 11. What are the most common word embedding methods? explain each briefly. [[src]](https://www.projectpro.io/article/nlp-interview-questions-and-answers/439)\nCommon word embedding methods include:\n* Count-based methods: Create embeddings by counting the co-occurrence of words in a corpus. Example: Latent Semantic Analysis (LSA)\n* Prediction-based methods: Create embeddings by training a model to predict a target word based on its surrounding context. Example: Continuous Bag-of-Words (CBOW) and Word2Vec\n* Hybrid methods: Combine both co-occurrence and context to generate embeddings. Example: GloVe (Global Vectors for Word Representation)\n* Neural Language Model based methods: Create embeddings by training a neural network-based language model on a large corpus of text. Example: BERT (Bidirectional Encoder Representations from Transformers)\n\n### 12. What are the first few steps that you will take before applying an NLP algorithm to a given corpus? [[src]](https://www.projectpro.io/article/nlp-interview-questions-and-answers/439)\n* Text pre-processing: Clean and transform the text into a format that can be processed by the model. Specific methods include: Removing special characters, lowercasing, removing stop words.\n\n* Tokenization: Break the text into individual words or phrases that can be used as input. Specific methods include: word tokenization, sentence tokenization, and n-gram tokenization.\n\n* Text normalization: Transform the text into a consistent format. Specific methods include: stemming, lemmatization.\n\n* Feature extraction: Select relevant features from the text to be used as input. Specific methods include: creating a vocabulary of the most common words in the corpus, creating a term-document matrix.\n\n* Splitting the data: Divide the data into training, validation and testing sets.\n\n* Annotating the data: Manually tag the data with relevant information. Specific methods include: POS tagging, NER tagging, and so on.\n\n### 13. List a few types of linguistic ambiguities. [[src]](https://www.projectpro.io/article/nlp-interview-questions-and-answers/439)\n* Lexical ambiguity: A word has multiple meanings. Example: \"bass\" can refer to a type of fish or a low-frequency sound.\n\n* Syntactic ambiguity: A sentence can be parsed in more than one way. Example: \"I saw the man with the telescope\" can mean that the speaker saw a man who had a telescope or the speaker saw a man through a telescope.\n\n* Semantic ambiguity: A word or phrase can have more than one meaning in a given context. Example: \"bank\" can refer to a financial institution or the edge of a river.\n\n* Pragmatic ambiguity: A sentence can have different interpretations depending on the speaker's intended meaning. Example: \"I'm fine\" can mean that the speaker is feeling well or that the speaker does not want to talk about their feelings.\n\n* Anaphora resolution: A pronoun or noun phrase refers to an antecedent with multiple possible referents.\n\n* Homonymy: Words that are written and pronounced the same but have different meanings. Example: \"bass\" as a type of fish and a low-frequency sound\n\n* Polysemy: words that have multiple meanings but are related in some way. Example: \"bass\" as a low-frequency sound and the bass guitar.",
+    "tags": [
+      "nlp",
+      "computer_vision",
+      "sequence_models",
+      "fundamentals"
+    ]
+  }
+]

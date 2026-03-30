@@ -1,0 +1,23 @@
+You are evaluating a candidate's answers to factual ML interview questions.
+
+QUESTIONS AND CORRECT ANSWERS:
+{questions_and_answers}
+
+CANDIDATE RESPONSES (in order):
+{candidate_responses}
+
+For each question, determine if the candidate's answer is:
+- correct: Substantially correct, captures the key concept
+- partial: Shows some understanding but missing important details
+- incorrect: Wrong or no meaningful answer
+
+Return ONLY valid JSON:
+{
+  "results": [
+    {"question_id": <int>, "verdict": "correct|partial|incorrect", "notes": "<brief>"},
+    ...
+  ],
+  "correct_count": <int>,
+  "partial_count": <int>,
+  "total_questions": <int>
+}
