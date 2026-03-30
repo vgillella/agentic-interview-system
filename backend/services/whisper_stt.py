@@ -3,9 +3,9 @@ Whisper STT — transcribes audio bytes and returns text.
 """
 import io
 import os
-from openai import OpenAI
+from openai import AsyncOpenAI
 
-client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
+client = AsyncOpenAI(api_key=os.environ["OPENAI_API_KEY"])
 
 
 async def transcribe_audio(audio_bytes: bytes, mime_type: str = "audio/webm") -> str:
@@ -14,7 +14,7 @@ async def transcribe_audio(audio_bytes: bytes, mime_type: str = "audio/webm") ->
     audio_file = io.BytesIO(audio_bytes)
     audio_file.name = f"recording.{ext}"
 
-    transcript = client.audio.transcriptions.create(
+    transcript = await client.audio.transcriptions.create(
         model="whisper-1",
         file=audio_file,
         language="en",

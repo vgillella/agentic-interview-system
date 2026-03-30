@@ -15,7 +15,10 @@ async def transcribe(audio: UploadFile = File(...)):
     if not audio_bytes:
         raise HTTPException(status_code=400, detail="Empty audio file.")
 
-    transcript = await transcribe_audio(audio_bytes, audio.content_type or "audio/webm")
+    try:
+        transcript = await transcribe_audio(audio_bytes, audio.content_type or "audio/webm")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Transcription failed: {e}")
     anxious = detect_anxiety(transcript)
 
     return {
