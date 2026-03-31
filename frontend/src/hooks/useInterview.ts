@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef } from 'react'
+import { useState, useCallback, useRef, useEffect } from 'react'
 import axios from 'axios'
 
 export interface Message {
@@ -14,6 +14,7 @@ export interface InterviewState {
   messages: Message[]
   isLoading: boolean
   isRecording: boolean
+  audioLevel: number       // 0–100, live mic level during recording
   anxietyDetected: boolean
   interviewComplete: boolean
   error: string
@@ -36,6 +37,7 @@ export function useInterview(sessionId: string, studentName: string) {
     messages: [],
     isLoading: false,
     isRecording: false,
+    audioLevel: 0,
     anxietyDetected: false,
     interviewComplete: false,
     error: '',
@@ -43,6 +45,8 @@ export function useInterview(sessionId: string, studentName: string) {
 
   const mediaRecorderRef = useRef<MediaRecorder | null>(null)
   const audioChunksRef = useRef<Blob[]>([])
+  const analyserRef = useRef<AnalyserNode | null>(null)
+  const levelRafRef = useRef<number>(0)
 
   const addMessage = useCallback((role: 'interviewer' | 'candidate', text: string) => {
     setState(s => ({
@@ -98,13 +102,40 @@ export function useInterview(sessionId: string, studentName: string) {
 
   const startRecording = useCallback(async () => {
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
-      const mr = new MediaRecorder(stream, { mimeType: 'audio/webm' })
+      const stream = await navigator.mediaDevices.getUserMedia({
+        audio: {
+          echoCancellation: true,
+          noiseSuppression: true,
+          autoGainControl: true,
+        }
+      })
+
+      // Live audio level meter via Web Audio API
+      const audioCtx = new AudioContext()
+      const source = audioCtx.createMediaStreamSource(stream)
+      const analyser = audioCtx.createAnalyser()
+      analyser.fftSize = 256
+      source.connect(analyser)
+      analyserRef.current = analyser
+      const buf = new Uint8Array(analyser.frequencyBinCount)
+      const tick = () => {
+        analyser.getByteFrequencyData(buf)
+        const avg = buf.reduce((a, b) => a + b, 0) / buf.length
+        setState(s => ({ ...s, audioLevel: Math.round(avg) }))
+        levelRafRef.current = requestAnimationFrame(tick)
+      }
+      levelRafRef.current = requestAnimationFrame(tick)
+
+      // Safari doesn't support audio/webm — pick first supported format
+      const mimeType = ['audio/webm', 'audio/mp4', 'audio/ogg'].find(t => MediaRecorder.isTypeSupported(t)) || ''
+      const mrOptions: MediaRecorderOptions = { audioBitsPerSecond: 128000 }
+      if (mimeType) mrOptions.mimeType = mimeType
+      const mr = new MediaRecorder(stream, mrOptions)
       audioChunksRef.current = []
       mr.ondataavailable = (e) => { if (e.data.size > 0) audioChunksRef.current.push(e.data) }
-      mr.start()
+      mr.start(250)
       mediaRecorderRef.current = mr
-      setState(s => ({ ...s, isRecording: true }))
+      setState(s => ({ ...s, isRecording: true, audioLevel: 0 }))
     } catch {
       setState(s => ({ ...s, error: 'Microphone access denied.' }))
     }
@@ -117,14 +148,20 @@ export function useInterview(sessionId: string, studentName: string) {
     mr.stream.getTracks().forEach(t => t.stop())
     setState(s => ({ ...s, isRecording: false, isLoading: true }))
 
+    cancelAnimationFrame(levelRafRef.current)
+    setState(s => ({ ...s, audioLevel: 0 }))
+
     await new Promise<void>(resolve => { mr.onstop = () => resolve() })
 
-    const blob = new Blob(audioChunksRef.current, { type: 'audio/webm' })
+    const mimeType = mr.mimeType || 'audio/webm'
+    const ext = mimeType.includes('mp4') ? 'mp4' : mimeType.includes('ogg') ? 'ogg' : 'webm'
+    const blob = new Blob(audioChunksRef.current, { type: mimeType })
     const form = new FormData()
-    form.append('audio', blob, 'recording.webm')
+    form.append('audio', blob, `recording.${ext}`)
 
     try {
       const { data } = await axios.post('/api/transcribe', form)
+      console.log('[REC] transcribe response:', data)
       const { transcript, anxiety_detected, anxiety_message } = data
 
       if (anxiety_detected) {

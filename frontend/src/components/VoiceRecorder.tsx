@@ -4,11 +4,12 @@ interface Props {
   isRecording: boolean
   isLoading: boolean
   disabled: boolean
+  audioLevel: number   // 0–100 live mic level
   onStartRecording: () => void
   onStopRecording: () => void
 }
 
-export default function VoiceRecorder({ isRecording, isLoading, disabled, onStartRecording, onStopRecording }: Props) {
+export default function VoiceRecorder({ isRecording, isLoading, disabled, audioLevel, onStartRecording, onStopRecording }: Props) {
   const handleMouseDown = useCallback(() => {
     if (!disabled && !isLoading) onStartRecording()
   }, [disabled, isLoading, onStartRecording])
@@ -52,13 +53,16 @@ export default function VoiceRecorder({ isRecording, isLoading, disabled, onStar
         <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
       ) : isRecording ? (
         <div className="flex gap-0.5 items-end h-5">
-          {[1, 2, 3, 4].map(i => (
-            <div
-              key={i}
-              className="w-1 bg-white rounded-full animate-pulse"
-              style={{ height: `${12 + i * 4}px`, animationDelay: `${i * 0.1}s` }}
-            />
-          ))}
+          {[0.6, 1.0, 0.8, 0.5].map((scale, i) => {
+            const pct = Math.max(4, Math.min(20, (audioLevel / 255) * 20 * scale))
+            return (
+              <div
+                key={i}
+                className="w-1 bg-white rounded-full transition-all duration-75"
+                style={{ height: `${pct}px` }}
+              />
+            )
+          })}
         </div>
       ) : (
         <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">

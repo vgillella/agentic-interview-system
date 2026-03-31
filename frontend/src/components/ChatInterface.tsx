@@ -168,6 +168,7 @@ export default function ChatInterface({ sessionId, studentName, onComplete }: Pr
                 isRecording={state.isRecording}
                 isLoading={state.isLoading}
                 disabled={state.interviewComplete}
+                audioLevel={state.audioLevel}
                 onStartRecording={startRecording}
                 onStopRecording={stopRecording}
               />
